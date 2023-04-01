@@ -1,0 +1,75 @@
+.border {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.book-form {
+}
+input {
+  color: yellow;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+input:checked + label,
+.seat-select {
+  background-color: var(--light-red);
+}
+/* boiler plate css  */
+.last-order {
+  border-radius: 10px;
+  border: 1px black ridge;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.book-button button {
+  text-align: center;
+  border-radius: 10px;
+  font-size: 1em;
+  color: white;
+  background: rgb(44, 209, 88);
+  background: -moz-linear-gradient(
+    233deg,
+    rgba(44, 209, 88, 1) 0%,
+    rgba(44, 108, 224, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    233deg,
+    rgba(44, 209, 88, 1) 0%,
+    rgba(44, 108, 224, 1) 100%
+  );
+  background: linear-gradient(
+    233deg,
+    rgba(44, 209, 88, 1) 0%,
+    rgba(44, 108, 224, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2cd158", endColorstr="#2c6ce0", GradientType=1);
+  padding: 5px 15px;
+  font-weight: 500;
+}
+#app {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 6fr 2fr;
+  gap: 20px;
+  justify-content: start;
+  align-items: start;
+}
+
+@media screen and (max-width: 997px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+  .last-order {
+    margin-top: 20px;
+  }
+}
+
+.last-order p {
+  margin: 5px 0;
+}
