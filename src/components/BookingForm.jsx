@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { movies, slots, seats } from "../data";
 import { useDispatch } from "react-redux";
 import { bookShow } from "../features/shows/showSlice";
+import axios from "axios";
 
 function BookForm() {
      const dispatch = useDispatch();
@@ -16,6 +17,17 @@ function BookForm() {
      const [D2, setD2] = useState(0);
      const [valid, setValid] = useState(false);
 
+     const resetAll = () => {
+          movieName("")
+          timeSlot("")
+          setA1(0)
+          setA2(0)
+          setA3(0)
+          setA4(0)
+          setD1(0)
+          setD2(0)
+     }
+
      const handleChange = (setFunction, value) => {
           setFunction((state) => {
                return value;
@@ -29,20 +41,29 @@ function BookForm() {
           });
      };
 
-     const handleSubmit = (e) => {
+     const handleSubmit = async (e) => {
           e.preventDefault();
-          const finalBook = {
-               movieName,
-               timeSlot,
-               A1,
-               A2,
-               A3,
-               A4,
-               D1,
-               D2,
-          };
-          // console.log(finalBook)
-          dispatch(bookShow(finalBook))
+
+          try {
+               const finalBook = {
+                    movieName,
+                    timeSlot,
+                    A1,
+                    A2,
+                    A3,
+                    A4,
+                    D1,
+                    D2,
+               };
+               const res = await axios.post("https://bookmyshow-api-riteswar.onrender.com/api/booking", finalBook)
+               if (res) {
+                    dispatch(bookShow(finalBook))
+                    console.log(res);
+                    resetAll();
+               }
+          } catch (error) {
+
+          }
      };
 
      return (
