@@ -9,10 +9,13 @@ const showSlice = createSlice({
   initialState,
   reducers: {
     bookShow(state, action) {
-      state.shows = [action.payload, ...state.shows];
+      state.shows = [...state.shows, action.payload];
+    },
+    fetchBookedShows(state, action) {
+      state.shows = action.payload;
     },
   },
 });
 
-export const { bookShow } = showSlice.actions;
+export const { bookShow, fetchBookedShows } = showSlice.actions;
 export default showSlice.reducer;

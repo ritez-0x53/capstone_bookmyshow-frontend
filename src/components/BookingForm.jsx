@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { movies, slots, seats } from "../data";
 import { useDispatch } from "react-redux";
-import { bookShow } from "../features/shows/showSlice";
+import { bookShow, fetchBookedShows } from "../features/shows/showSlice";
 import axios from "axios";
 
 function BookForm() {
+
+     // last booked show 
      const dispatch = useDispatch();
      const [seatType, setSeatType] = useState(null);
      const [movieName, setMovieName] = useState("");
@@ -28,6 +30,20 @@ function BookForm() {
           setD2(0)
      }
 
+     useEffect(() => {
+          async function fetchData() {
+               try {
+                    const res = await axios.get("https://bookmyshow-api-riteswar.onrender.com/api/booking")
+                    localStorage.setItem("bookedshows", JSON.stringify(res.data));
+                    const data = JSON.parse(localStorage.getItem("bookedshows"));
+                    dispatch(fetchBookedShows(res.data));
+               } catch (err) {
+                    console.log(err)
+               }
+          }
+          fetchData();
+     }, [])
+
      const handleChange = (setFunction, value) => {
           setFunction((state) => {
                return value;
@@ -39,11 +55,10 @@ function BookForm() {
           setFunction((state) => {
                return number;
           });
-     };
+     }
 
      const handleSubmit = async (e) => {
           e.preventDefault();
-
           try {
                const finalBook = {
                     movieName,
@@ -58,11 +73,11 @@ function BookForm() {
                const res = await axios.post("https://bookmyshow-api-riteswar.onrender.com/api/booking", finalBook)
                if (res) {
                     dispatch(bookShow(finalBook))
-                    console.log(res);
+                    alert(res.data.msg)
                     resetAll();
                }
           } catch (error) {
-
+               // console.log(error)
           }
      };
 
@@ -141,12 +156,12 @@ function BookForm() {
                                         className={`cursor-pointer w-24 seat-row inline-block p-3 m-1 border text-center ${seatType === index ? "seat-select" : null
                                              } `}
                                    >
-                                        <label htmlFor="{seat}">Type {seat}</label>
+                                        <label htmlFor={`seat-${seat}`} >Type {seat}</label>
                                         <br />
                                         <input
                                              className="px-1 my-2 w-4/5 mx-auto text-black bg-transparent border rounded-sm"
-                                             value={eval(seat) < 0 || undefined ? 0 : eval(seat)}
-                                             id={seat}
+                                             value={eval(seat) <= 0 ? 0 : eval(seat)}
+                                             id={`seat-${seat}`}
                                              type="number"
                                              onChange={(e) => {
                                                   handleSeatType(eval("set" + seat), e);
@@ -156,9 +171,6 @@ function BookForm() {
                               );
                          })}
                     </div>
-                    {
-
-                    }
                     <div className="book-button">
                          <button disabled={movieName.length > 0 && timeSlot.length > 0 && (A1 > 0 || A2 > 0 || A3 > 0 || A4 > 0 || D1 > 0 || D2 > 0) ? false : true} type="submit">Book Now</button>
                     </div>
