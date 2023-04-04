@@ -71,3 +71,32 @@ input:checked + label,
 .last-order p {
   margin: 5px 0;
 }
+
+.movie-column,
+.seat-column,
+.slot-column {
+  display: inline-block;
+  margin: 5px;
+  color: rgb(0, 0, 0);
+  border: 1px rgb(0, 0, 0) ridge;
+  padding: 10px 15px;
+  line-height: 1px;
+  border-radius: 5px;
+  /* box-shadow: 0 0 5px 5px; */
+}
+
+.movie-column-selected,
+.seat-column-selected,
+.slot-column-selected {
+  background: rgb(211, 115, 115);
+  /* box-shadow: 0 0 5px 5px; */
+}
+
+.movie-row,
+.seat-row,
+.slot-row {
+  border-radius: 10px;
+  border: 1px black ridge;
+  padding: 10px;
+  margin-bottom: 10px;
+}
