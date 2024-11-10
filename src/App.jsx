@@ -14,7 +14,7 @@ function App() {
   }, [])
 
   return <div id='app' className='overflow-hidden' >
-    <h1 className='text-2xl mb-3' >Book that show!!</h1>
+    <h1 className='text-2xl mb-3 font-bold' >Book that show!!</h1>
     <div className='wrapper' >
       <BookForm setProcessing={setProcessing} />
       <LastOrder />
