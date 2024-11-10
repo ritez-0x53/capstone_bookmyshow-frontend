@@ -100,3 +100,10 @@ input:checked + label,
   padding: 10px;
   margin-bottom: 10px;
 }
+.seats {
+  font-weight: bold;
+}
+
+.book-form {
+  font-weight: bold;
+}
