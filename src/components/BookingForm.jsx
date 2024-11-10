@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { movies, slots, seats } from "../data";
-import { useDispatch } from "react-redux";
-import { bookShow, fetchBookedShows } from "../features/shows/showSlice";
-import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from "react"; // Import React and hooks
+import { movies, slots, seats } from "../data"; // Import static data
+import { useDispatch } from "react-redux"; // Import useDispatch for Redux
+import { bookShow, fetchBookedShows } from "../features/shows/showSlice"; // Import actions
+import axios from "axios"; // Import Axios for HTTP requests
+import { ToastContainer, toast } from 'react-toastify'; // Import Toast for notifications
+import 'react-toastify/dist/ReactToastify.css'; // Import Toast styles
 
 
-function BookForm({ setProcessing }) {
-     // last booked show
-     const dispatch = useDispatch();
-     const [seatType, setSeatType] = useState('');
-     const [movieName, setMovieName] = useState("");
-     const [timeSlot, setTimeSlot] = useState("");
-     const [A1, setA1] = useState(0);
-     const [A2, setA2] = useState(0);
-     const [A3, setA3] = useState(0);
-     const [A4, setA4] = useState(0);
-     const [D1, setD1] = useState(0);
-     const [D2, setD2] = useState(0);
+function BookForm({ setProcessing }) { // Booking form component
+     const dispatch = useDispatch(); // Initialize dispatch
+     const [seatType, setSeatType] = useState(''); // State for selected seat type
+     const [movieName, setMovieName] = useState(""); // State for selected movie
+     const [timeSlot, setTimeSlot] = useState(""); // State for selected time slot
+     const [A1, setA1] = useState(0); // State for seat A1
+     const [A2, setA2] = useState(0); // State for seat A2
+     const [A3, setA3] = useState(0); // State for seat A3
+     const [A4, setA4] = useState(0); // State for seat A4
+     const [D1, setD1] = useState(0); // State for seat D1
+     const [D2, setD2] = useState(0); // State for seat D2
 
-     // const [valid, setValid] = useState(false);
+     // Reset form fields
      function reset() {
           setMovieName("")
           setTimeSlot("")
@@ -33,13 +32,13 @@ function BookForm({ setProcessing }) {
           setSeatType("")
      }
 
-
+     // Handle seat type change
      const handleSeatType = (setFunction, e) => {
           const number = Number.parseInt(e.target.value);
           setFunction(number);
      }
 
-
+     // Handle form submission
      const handleSubmit = async (e) => {
           e.preventDefault();
           setProcessing(true)
@@ -54,28 +53,27 @@ function BookForm({ setProcessing }) {
                     D1,
                     D2,
                };
+               // Send booking data to API
                const res = await axios.post("https://bookmyshow-api-riteswar.onrender.com/api/booking", finalBook)
                if (res) {
-                    dispatch(bookShow(finalBook))
-                    reset();
-                    const notify = () => toast.success(res.data.msg);
+                    dispatch(bookShow(finalBook)) // Dispatch booking action
+                    reset(); // Reset form
+                    const notify = () => toast.success(res.data.msg); // Success notification
                     setTimeout(() => {
                          notify();
                          setProcessing(false);
                     }, 1000)
                }
           } catch (error) {
-
+               // Handle error (can add a comment here if needed)
           }
      };
-
 
      return (
           <>
                <form className="book-form text-xs md:text-sm" onSubmit={handleSubmit}>
-                    {/* <h1 className="ml-2 text-xl" >Book that show!!</h1> */}
+                    {/* Movie selection */}
                     <div className=" movie-row">
-                         {/* select movie container */}
                          <h2 className="text-lg md:text-xl" >Select Movie</h2>
                          {movies.map((movie, index) => {
                               return (
@@ -88,7 +86,7 @@ function BookForm({ setProcessing }) {
                          })}
                     </div>
 
-                    {/* select timeslot container */}
+                    {/* Time slot selection */}
                     <div className="slot-row">
                          <h2 className="text-lg md:text-xl" >Select a Time slot</h2>
                          {slots.map((slot, index) => {
@@ -103,7 +101,7 @@ function BookForm({ setProcessing }) {
                          })}
                     </div>
 
-                    {/* select seat container */}
+                    {/* Seat selection */}
                     <div className="select-seat border my-2 p-2">
                          <h2 className="text-lg md:text-xl" >Select the seats </h2>
                          {seats.map((seat, index) => {
@@ -131,13 +129,14 @@ function BookForm({ setProcessing }) {
                               );
                          })}
                     </div>
+                    {/* Book button */}
                     <div className="book-button mt-4">
                          <button disabled={movieName.length > 0 && timeSlot.length > 0 && (A1 > 0 || A2 > 0 || A3 > 0 || A4 > 0 || D1 > 0 || D2 > 0) ? false : true} type="submit">Book Now</button>
                     </div>
-                    <ToastContainer />
+                    <ToastContainer /> {/* Container for toast notifications */}
                </form>
           </>
      );
 }
 
-export default BookForm;
+export default BookForm; // Export the component
