@@ -25,6 +25,21 @@ This is the frontend of the BookMyShow clone application, built with **React.js*
 3. Install dependencies:
    ```bash
    npm install
+4. Start the application:
+   ```bash
+   npm run dev
+
+
+Usage
+The app will be available at http://localhost:5173 (default port will depend on your Vite configuration).
+Make sure the backend is running and accessible for full functionality.
+Deployment
+The frontend is deployed on Netlify. To deploy your version, follow these steps:
+
+Push the latest code to GitHub.
+Link your repository to Netlify and set the VITE_API_URL environment variable to match your backend URL.
+Netlify will handle the deployment automatically.
+
 
  
 
