@@ -1,46 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Initial state for shows
 const initialState = {
   shows: [],
   status: "LOADING",
 };
 
+// Create a slice for managing shows
 const showSlice = createSlice({
   name: "movieshows",
   initialState,
   reducers: {
+    // Add a new show
     bookShow(state, action) {
-      state.shows = [...state.shows, action.payload];
+      state.shows.push(action.payload);
     },
+    // Set fetched shows
     fetchBookedShows(state, action) {
       state.shows = action.payload;
     },
+    // Update fetch status
     setStatus(state, action) {
       state.status = action.payload;
     },
   },
 });
 
+// Export actions and reducer
 export const { bookShow, fetchBookedShows, setStatus } = showSlice.actions;
 export default showSlice.reducer;
 
-// thunks
-const fetchData = () => {
-  return async function fetchDataThunk(dispatch, getState) {
-    try {
-      const res = await axios.get(
-        "https://bookmyshow-api-riteswar.onrender.com/api/booking"
-      );
-      if (res) {
-        const data = res.data;
-        dispatch(fetchBookedShows(data));
-        dispatch(setStatus("IDLE"));
-      }
-    } catch (error) {
-      dispatch(setStatus("ERROR"));
-    }
-  };
+// Thunk to fetch shows data
+const fetchData = () => async (dispatch) => {
+  try {
+    const res = await axios.get("https://bookmyshow-api-riteswar.onrender.com/api/booking");
+    dispatch(fetchBookedShows(res.data));
+    dispatch(setStatus("IDLE"));
+  } catch {
+    dispatch(setStatus("ERROR"));
+  }
 };
 
 export { fetchData };
