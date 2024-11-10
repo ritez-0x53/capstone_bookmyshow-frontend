@@ -30,21 +30,21 @@ const LastOrder = () => {
                     <div className='last-order text-xs md:text-sm' >
                          <h2 className='text-xl' >Last Booking Details</h2>
                          <div className='seats'>
-                              <h3>seats:</h3>
-                              <p>A1:{lastbookingShow.A1}</p>
-                              <p>A2:{lastbookingShow.A2}</p>
-                              <p>A3:{lastbookingShow.A3}</p>
-                              <p>A4:{lastbookingShow.A4}</p>
-                              <p>D1:{lastbookingShow.D1}</p>
-                              <p>D2:{lastbookingShow.D2}</p>
+                              <h3><b>seats</b>:</h3>
+                              <p><b>A1</b>:{lastbookingShow.A1}</p>
+                              <p><b>A2</b>:{lastbookingShow.A2}</p>
+                              <p><b>A3</b>:{lastbookingShow.A3}</p>
+                              <p><b>A4</b>:{lastbookingShow.A4}</p>
+                              <p><b>D1</b>:{lastbookingShow.D1}</p>
+                              <p><b>D2</b>:{lastbookingShow.D2}</p>
                          </div>
 
-                         <div className='slot' >
-                              <p>slot:{lastbookingShow.timeSlot}</p>
+                        <div className='slot' >
+                              <p><b>slot</b>:{lastbookingShow.timeSlot}</p>
                          </div>
 
                          <div className='movie'>
-                              <p>movie:{lastbookingShow.movieName}</p>
+                              <p><b>movie</b>:{lastbookingShow.movieName}</p>
                          </div>
 
                     </div>
