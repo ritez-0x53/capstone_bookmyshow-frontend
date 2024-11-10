@@ -10,7 +10,7 @@ This is the frontend of the BookMyShow clone application, built with **React.js*
 - **Netlify** - Deployment platform
 
 ## Features
-- User-friendly UI for browsing events
+- User-friendly UI for browsing shows, booking and last booking
 - Loading spinner for a smoother experience while fetching data
 - Responsive design that works across desktop and mobile
 - State management with Redux to manage data across components
